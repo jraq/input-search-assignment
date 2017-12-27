@@ -8,23 +8,34 @@ class SearchInput extends Component {
         isVisible: false
     }
     search = (e) => {
-        //TODO: build the search here
-        console.log(e.target.value);
+        const { items } = this.props;
+        let matchedItems = [];
+        let search = e.target.value.toLowerCase();
+
+        if (search) {
+            items.forEach(element => {
+
+                if (element.label.toLowerCase().startsWith(search)) {
+                    matchedItems.push({ ...element, isActive: false })
+                }
+            });
+        }
+        this.setState({ matchingItems: matchedItems, isVisible: search.length > 0 })
     }
     render() {
-        const { isVisible, matchingItems} = this.state;
+        const { isVisible, matchingItems } = this.state;
         return (
             <div className="Search">
-                <input type="text" onKeyPress={this.search} />
+                <input type="text" onKeyUp={this.search} />
                 {isVisible && <div className="searchDisplay">
                     {
-                        this.state.matchingItems.length === 0 && <div>
+                        matchingItems.length === 0 && <div>
                             No results
                         </div>
                     }
-                    {matchingItems.length > 0 && matchingItems.map((item) => {
-                        return <div>{item.label} {item.value}</div>
-                        })
+                    {matchingItems.map((item, index) => {
+                        return <div key={index}>{item.label} {item.value}</div>
+                    })
                     }
                 </div>
                 }
