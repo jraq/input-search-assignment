@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-
+import InputSearchItem from './InputSearchItem';
 
 class SearchInput extends Component {
     state = {
@@ -14,7 +14,6 @@ class SearchInput extends Component {
 
         if (search) {
             items.forEach(element => {
-
                 if (element.label.toLowerCase().startsWith(search)) {
                     matchedItems.push({ ...element, isActive: false })
                 }
@@ -23,7 +22,8 @@ class SearchInput extends Component {
         this.setState({ matchingItems: matchedItems, isVisible: search.length > 0 })
     }
     render() {
-        const { isVisible, matchingItems } = this.state;
+        const { isVisible, matchingItems,  } = this.state;
+        const { searchResult } = this.props;
         return (
             <div className="Search">
                 <input type="text" onKeyUp={this.search} />
@@ -34,7 +34,7 @@ class SearchInput extends Component {
                         </div>
                     }
                     {matchingItems.map((item, index) => {
-                        return <div key={index}>{item.label} {item.value}</div>
+                        return <InputSearchItem key={index} item={item} searchResult={searchResult}/>
                     })
                     }
                 </div>
