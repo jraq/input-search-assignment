@@ -3,7 +3,7 @@ Assignment for Committee for Children
 General Info:
 ===================
 
-All react files are under src. The two components I added are the Input Search and Input Search Item. The search item handles the click event for the search and the input search handle the key press events for the search. I used crate-react-app for the initial project creation. It created the App files in src. I modified the App.css and added my own css. I also modified the App.js to add the input search. 
+All react files are under src. The two components I added are the Input Search and Input Search Item. The search item component handles the click event for the search. The input search component handles the key press events for the search. I used crate-react-app for the initial project creation. It created the App files in src. I modified the App.css and added my own css. I also modified the App.js to add the input search. 
 
 Running the application: 
 1. cd to input-search-assignment root folder
