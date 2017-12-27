@@ -5,14 +5,28 @@ import InputSearchItem from './InputSearchItem';
 class SearchInput extends Component {
     state = {
         matchingItems: [],
-        isVisible: false
+        isVisible: false,
+        searchText: ""
     }
-    search = (e) => {
-        const { items ,searchResult } = this.props;
-        if(e.keyCode === 13){
-            let item = this.state.matchingItems.find(x=>x.selected === true);
-            if(item){
+    clickedItem = (item) => {
+        const { searchResult } = this.props;
+        searchResult(item);
+        this.clearResults()
+    }
+    clearResults() {
+        this.setState({ matchingItems: [], isVisible: false, searchText : "" })
+
+    }
+    change = (e) => {
+        this.setState({ searchText: e.target.value });
+    }
+    keyUp = (e) => {
+        const { items, searchResult } = this.props;
+        if (e.keyCode === 13) {
+            let item = this.state.matchingItems.find(x => x.selected === true);
+            if (item) {
                 searchResult(item);
+                this.clearResults()
             }
         }
 
@@ -28,10 +42,10 @@ class SearchInput extends Component {
                     }
                 });
             }
-            this.setState({ matchingItems: matchedItems, isVisible: search.length > 0 })
+            this.setState({ matchingItems: matchedItems, isVisible: search.length > 0})
         }
     }
-    selectItem = (e) => {
+    keyDown = (e) => {
         const { matchingItems } = this.state;
         let isUpDown = e.keyCode === 38 || e.keyCode === 40
         if (isUpDown) {
@@ -42,7 +56,7 @@ class SearchInput extends Component {
                     let nextIndex = e.keyCode === 40 ? selectedIndex + 1 : selectedIndex - 1;
                     if (nextIndex === index) {
                         item.selected = true;
-                    } else{
+                    } else {
                         item.selected = false;
                     }
                 });
@@ -51,12 +65,17 @@ class SearchInput extends Component {
         }
     }
     render() {
-        const { isVisible, matchingItems, } = this.state;
+        const { isVisible, matchingItems, searchText } = this.state;
         const { searchResult } = this.props;
         return (
             <div className="Search">
                 <div className="SearchInput">
-                    <input type="text" onKeyUp={this.search} onKeyDown={this.selectItem} />
+                    <input
+                        value={searchText}
+                        type="text"
+                        onChange={this.change}
+                        onKeyUp={this.keyUp}
+                        onKeyDown={this.keyDown} />
                 </div>
                 {isVisible && <div className="SearchDisplay">
                     {
@@ -65,7 +84,7 @@ class SearchInput extends Component {
                         </div>
                     }
                     {matchingItems.map((item, index) => {
-                        return <InputSearchItem key={index} item={item} searchResult={searchResult} />
+                        return <InputSearchItem key={index} item={item} searchResult={this.clickedItem} />
                     })
                     }
                 </div>
