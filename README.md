@@ -5,13 +5,10 @@ General Info:
 
 All react files are under src. The two components I added are the Input Search and Input Search Item. The search item handles the click event for the search and the input search handle the key press events for the search. I used crate-react-app for the initial project creation. It created the App files in src. I modified the App.css and added my own css.
 
-The build folder is the static output. You can load the app using index.html file. I'll check in the final build with this readme. 
+You can use these commands from the root folder to run the application:
 
-If you would like to run it on your own. You can use these commands:
-
-Dev: npm run start
-Build : npm run build
-
+1. npm run start
+2. Open http://localhost:3000 in a browser
 
 Problem assignment:
 ===================
