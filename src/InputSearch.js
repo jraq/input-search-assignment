@@ -66,7 +66,6 @@ class SearchInput extends Component {
     }
     render() {
         const { isVisible, matchingItems, searchText } = this.state;
-        const { searchResult } = this.props;
         return (
             <div className="Search">
                 <div className="SearchInput">
