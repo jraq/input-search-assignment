@@ -8,7 +8,7 @@ class InputSearchItem extends Component {
     }
     render(){
         const { item } = this.props;
-        return(<div onClick={this.click}>{item.label} {item.value}</div>)
+        return(<div className={item.selected ? "SearchDisplayItemActive" : "SearchDisplayItem"} onClick={this.click}>{item.label} {item.value}</div>)
     }
 }
 
